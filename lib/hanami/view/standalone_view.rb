@@ -297,15 +297,13 @@ module Hanami
 
         # @api private
         def locals(render_env, input)
-          with_render_env(render_env) {
-            exposures.(context: render_env.context, **input) do |value, exposure|
-              if exposure.decorate? && value
-                render_env.part(exposure.name, value, **exposure.options)
-              else
-                value
-              end
+          exposures.(context: render_env.context, **input) do |value, exposure|
+            if exposure.decorate? && value
+              render_env.part(exposure.name, value, **exposure.options)
+            else
+              value
             end
-          }
+          end
         end
 
         # @api private
